@@ -371,11 +371,22 @@ print(res.json())
 
 Platí se za počet tokenů (input + output)
 
+```text
+cena = (input_tokeny x input_price) + (output_tokeny x output_price)
+```
+
 Optimalizace:
 
 - zkracovat kontext
 - omezit max_tokens
 - používat vhodný model
+
+[pricing modelů](https://nicolalazzari.ai/articles/ai-api-pricing-comparison-2026)
+
+[kalkulačka ceny]( https://llmpricingcalculator.com/)
+
+
+
 
 ### Bezpečnost
 
