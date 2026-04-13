@@ -6,3 +6,4 @@ Tento repozitář slouží jako rozcestník na jednotlivé materiály k předná
 
 - [LLM Funkce](./llm_funkce/llm_funkce.md)
 - [LLM API](./llm_api/llm_api.md)
+- [LLM pro vývoj SW](./vyvoj_sw/vyvoj_sw.md)
