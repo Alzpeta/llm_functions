@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentická Umělá Inteligence – Přehled frameworků</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --border: #e5e7eb;
+    --text: #1f2937;
+    --text-soft: #374151;
+    --text-muted: #6b7280;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --header-bg: #1e293b;
+    --header-text: #f8fafc;
+    --row-alt: #f9fafb;
+    --tag-bg: #eef2ff;
+    --tag-text: #3730a3;
+    --quote-bg: #f1f5f9;
+    --card-accent: #eff6ff;
+    --highlight-border: #10b981;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 2rem 1rem;
+    line-height: 1.6;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  h1 {
+    font-size: 2.25rem;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  /* Quote block */
+  .quote {
+    background: var(--quote-bg);
+    border-left: 4px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+  }
+
+  .quote .label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  /* === UNIFIED CARD STYLE for all 4 points === */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-row {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .timeline-row.cols-2 { grid-template-columns: 1fr 1fr; }
+  .timeline-row.cols-1 { grid-template-columns: 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .card.featured {
+    border-left: 4px solid var(--highlight-border);
+    background: linear-gradient(to right, #f0fdf4 0%, var(--surface) 8%);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  .card.featured .num { background: var(--highlight-border); }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .card-subtitle {
+    color: var(--text-soft);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--highlight-border);
+    color: white;
+    padding: 0.25rem 0.65rem;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+
+  /* Card content - strong contrast */
+  .card-body {
+    color: var(--text-soft);
+    font-size: 0.95rem;
+  }
+
+  .card-body ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .card-body ul ul {
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .card-body li {
+    margin-bottom: 0.4rem;
+    color: var(--text-soft);
+  }
+
+  .card-body li strong { color: var(--text); }
+
+  /* OpenClaw feature grid inside card */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 0.85rem;
+    margin: 1rem 0;
+  }
+
+  .feature {
+    background: var(--card-accent);
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+  }
+
+  .feature-title {
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+
+  .feature-body {
+    color: var(--text-soft);
+    font-size: 0.88rem;
+  }
+
+  .feature-body code {
+    background: rgba(37, 99, 235, 0.1);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+
+  /* Architecture bar */
+  .architecture {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .architecture h4 {
+    margin: 0 0 0.65rem;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .arch-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .arch-item {
+    background: var(--surface);
+    border: 1px solid #cbd5e1;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+  }
+
+  .arch-item strong { color: var(--accent); }
+
+  /* Transition heading */
+  .section-intro {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--accent-soft);
+    border-radius: 12px;
+  }
+
+  .section-intro h2 {
+    margin: 0 0 0.5rem;
+    color: var(--accent);
+  }
+
+  .section-intro p {
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Table */
+  .table-wrapper {
+    overflow-x: auto;
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+
+  thead { background: var(--header-bg); color: var(--header-text); }
+
+  th {
+    text-align: left;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) { background: var(--row-alt); }
+  tbody tr:hover { background: #f0f7ff; transition: background 0.15s ease; }
+
+  tbody tr.deprecated {
+    opacity: 0.8;
+    background: #fefce8 !important;
+  }
+
+  .framework-name {
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .framework-name .status {
+    display: block;
+    font-size: 0.7rem;
+    color: #a16207;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 0.2rem;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+  .tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .tag.primary { background: #dcfce7; color: #166534; }
+
+  /* Note about verified facts */
+  .fact-check {
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.88rem;
+    color: var(--text-soft);
+  }
+
+  .fact-check strong { color: #b45309; }
+
+  .notes {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .notes h2 { margin-top: 0; font-size: 1.25rem; }
+  .notes p { margin: 0.5rem 0; }
+
+  @media (max-width: 768px) {
+    .timeline-row.cols-2 { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 1rem 0.5rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+    th, td { padding: 0.65rem; font-size: 0.85rem; }
+    .card { padding: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- === ÚVODNÍ SEKCE === -->
+    <h1>Agentická Umělá Inteligence</h1>
+    <p class="subtitle">Vývoj agentních systémů a přehled frameworků</p>
+
+    <div class="quote">
+      <span class="label">Z minula</span>
+      LLM je často „kognitivní motor", ale agentická AI je celý řídicí organismus.
+    </div>
+
+    <!-- === CO SE DĚLO DÁL === -->
+    <h2>Co se dělo dál?</h2>
+
+    <div class="timeline">
+
+      <!-- Řada 1: body 1 a 2 vedle sebe -->
+      <div class="timeline-row cols-2">
+        <div class="card">
+          <div class="card-header">
+            <span class="num">1</span>
+            <h3 class="card-title">Manus</h3>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="num">2</span>
+            <h3 class="card-title">OpenAI (AgentMode)</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Řada 2: bod 3 samostatně, na celou šířku -->
+      <div class="timeline-row cols-1">
+        <div class="card">
+          <div class="card-header">
+            <span class="num">3</span>
+            <h3 class="card-title">Kódovací Agent</h3>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li><strong>Agent jako člen pracovního týmu</strong>
+                <ul>
+                  <li>Subagent jako specializovaný pomocný agent pro dílčí úkoly</li>
+                </ul>
+              </li>
+              <li><strong>Git repozitář</strong> jako firemní data</li>
+              <li><strong>MCP server</strong> jako rozhraní k nástrojům, datům a externím systémům</li>
+              <li><strong>RAG</strong> jako rozšířená dlouhodobá paměť nad daty</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Řada 3: bod 4 (OpenClaw) samostatně -->
+      <div class="timeline-row cols-1">
+        <div class="card featured">
+          <div class="card-header">
+            <span class="num">4</span>
+            <div>
+              <h3 class="card-title">OpenClaw</h3>
+              <p class="card-subtitle">Rakouský „vibe coder" Peter Steinberger – lokální, stavový agent s důrazem na transparentnost a proaktivitu.</p>
+            </div>
+            <span class="badge">Listopad 2025</span>
+          </div>
+
+          <div class="card-body">
+            <div class="feature-grid">
+              <div class="feature">
+                <div class="feature-title">Technologie</div>
+                <div class="feature-body">Open source (TypeScript / Node.js), lokální a stavový běh.</div>
+              </div>
+
+              <div class="feature">
+                <div class="feature-title">Autonomie</div>
+                <div class="feature-body">Nativně zmocněný k akci a externí komunikaci jménem uživatele. Umí ukládat přihlašovací údaje.</div>
+              </div>
+
+              <div class="feature">
+                <div class="feature-title">Paměť</div>
+                <div class="feature-body">Pamatuje si konverzace v <strong>Markdown a YAML</strong> – lidsky čitelná a auditovatelná, ne schovaná ve vektorové DB.</div>
+              </div>
+
+              <div class="feature">
+                <div class="feature-title">Proaktivita</div>
+                <div class="feature-body">Proaktivní, nejen reaktivní – agent periodicky čte <code>HEARTBEAT.md</code>.</div>
+              </div>
+
+              <div class="feature">
+                <div class="feature-title">Nástroje</div>
+                <div class="feature-body">Instrukce a metadata pro použití nástrojů v souboru <code>SKILL.md</code>.</div>
+              </div>
+            </div>
+
+            <div class="architecture">
+              <h4>Architektura „hub-and-spoke"</h4>
+              <div class="arch-items">
+                <div class="arch-item"><strong>Gateway</strong> – Control Panel (WebSocket, WhatsApp, Telegram, Slack, WebUI)</div>
+                <div class="arch-item"><strong>Brain</strong> – orchestrace LLM přes ReAct smyčku</div>
+                <div class="arch-item"><strong>Memory</strong> – persistentní kontext v Markdown</div>
+                <div class="arch-item"><strong>Skills</strong> – zásuvné moduly pro akce</div>
+                <div class="arch-item"><strong>Heartbeat</strong> – plánovač úkolů</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- === PŘECHOD NA FRAMEWORKY === -->
+    <div class="section-intro">
+      <h2>Přehled frameworků a proč to vědět</h2>
+      <p>„Stačí říct kódovacímu agentu, na jakém frameworku chcete svého agenta postavit."</p>
+    </div>
+
+    <!-- Poznámka o ověření -->
+    <div class="fact-check">
+      <strong>⚠ Fact-check:</strong> Tabulka byla aktualizována – několik frameworků podporuje více jazyků než jen Python (LangGraph, LlamaIndex, Google ADK, AutoGen, Semantic Kernel). Microsoft v říjnu 2025 navíc uvedl <strong>Microsoft Agent Framework</strong> jako nástupce AutoGen i Semantic Kernel; oba původní nástroje jsou nyní v režimu maintenance.
+    </div>
+
+    <!-- === TABULKA FRAMEWORKŮ === -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Framework</th>
+            <th>Popis</th>
+            <th>Tagy</th>
+            <th>Doporučení</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="framework-name">LangGraph</td>
+            <td>Framework pro tvorbu stavových, grafově orientovaných multi-agent workflow s možností zásahu člověka v průběhu.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">JS/TS</span>
+                <span class="tag">LangChain</span>
+                <span class="tag">open-source</span>
+                <span class="tag">stateful</span>
+              </div>
+            </td>
+            <td>Komplexní, detailně kontrolované systémy s větvením logiky, pamětí a human-in-the-loop (např. plánovací research agent).</td>
+          </tr>
+          <tr>
+            <td class="framework-name">CrewAI</td>
+            <td>Framework pro orchestraci týmu agentů s definovanými rolemi, kteří spolupracují na společném cíle.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">open-source</span>
+                <span class="tag">multi-agent</span>
+              </div>
+            </td>
+            <td>Simulace lidského týmu – analýza trhu, konkurence, tvorba obchodních strategií, obsahové produkce.</td>
+          </tr>
+          <tr>
+            <td class="framework-name">Pydantic AI</td>
+            <td>Typově bezpečný framework stavějící na Pydanticu, který validuje vstupy i výstupy LLM pomocí schémat.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">type-safe</span>
+                <span class="tag">open-source</span>
+              </div>
+            </td>
+            <td>Produkční aplikace, kde je klíčová validace a konzistence výstupů (zákaznický servis, strukturovaná data, API integrace).</td>
+          </tr>
+          <tr>
+            <td class="framework-name">Google ADK</td>
+            <td>Googlí framework pro stavbu agentů úzce integrovaných s Gemini a Google Cloud; Python je nejvyspělejší verze.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">Java</span>
+                <span class="tag">Go</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">google</span>
+                <span class="tag">cloud</span>
+              </div>
+            </td>
+            <td>Asistenti pracující s dokumenty, obrazem a hlasem; nasazení v Google Cloud / Vertex AI.</td>
+          </tr>
+          <tr>
+            <td class="framework-name">Microsoft Agent Framework<span class="status">★ nástupce AutoGen + SK</span></td>
+            <td>Sjednocení AutoGen (orchestrace) a Semantic Kernel (enterprise foundation) do jediného SDK s nativní MCP a A2A podporou. GA od dubna 2026.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">.NET</span>
+                <span class="tag">microsoft</span>
+                <span class="tag">enterprise</span>
+                <span class="tag">MCP</span>
+              </div>
+            </td>
+            <td>Doporučená volba pro nové projekty v Microsoft ekosystému – kombinuje výhody obou předchůdců a má long-term support.</td>
+          </tr>
+          <tr class="deprecated">
+            <td class="framework-name">AutoGen<span class="status">maintenance mode</span></td>
+            <td>Microsoftí framework pro konverzaci více agentů, škálovatelný a asynchronní; byl sjednocen do Microsoft Agent Framework.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">.NET</span>
+                <span class="tag">microsoft</span>
+                <span class="tag">multi-agent</span>
+              </div>
+            </td>
+            <td>Existující projekty – pro nové použít Microsoft Agent Framework (existuje oficiální migration guide).</td>
+          </tr>
+          <tr class="deprecated">
+            <td class="framework-name">Semantic Kernel<span class="status">maintenance mode</span></td>
+            <td>Microsoftí SDK pro integraci LLM do podnikových aplikací přes pluginy a plannery; také sjednoceno do Microsoft Agent Framework.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">C#/.NET</span>
+                <span class="tag">python</span>
+                <span class="tag">Java</span>
+                <span class="tag">microsoft</span>
+                <span class="tag">enterprise</span>
+              </div>
+            </td>
+            <td>Existující projekty s plugin architekturou – pro nové použít Microsoft Agent Framework.</td>
+          </tr>
+          <tr>
+            <td class="framework-name">LlamaIndex</td>
+            <td>Framework zaměřený na propojení LLM s daty, s event-driven workflow pro agentní RAG pipeline.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">open-source</span>
+                <span class="tag">RAG</span>
+                <span class="tag">data</span>
+              </div>
+            </td>
+            <td>Analýza a vyhledávání ve velkých kolekcích dokumentů, knowledge base, komplexní RAG.</td>
+          </tr>
+          <tr>
+            <td class="framework-name">Smolagents</td>
+            <td>Minimalistický framework od Hugging Face (~1 000 řádků jádra) pro code-first agenty, kteří píší akce jako Python kód.</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">huggingface</span>
+                <span class="tag">open-source</span>
+                <span class="tag">lightweight</span>
+              </div>
+            </td>
+            <td>Rychlé prototypování, jednoduché úlohy, učení se konceptům agentů bez zbytečné složitosti.</td>
+          </tr>
+          <tr>
+            <td class="framework-name">Agno<span class="status">dříve Phidata</span></td>
+            <td>High-performance runtime pro multimodální agenty s pamětí, znalostmi a doménovou specializací (rebrand z Phidata, leden 2025).</td>
+            <td>
+              <div class="tags">
+                <span class="tag primary">python</span>
+                <span class="tag">open-source</span>
+                <span class="tag">multimodal</span>
+                <span class="tag">performance</span>
+              </div>
+            </td>
+            <td>Doménoví asistenti (finance, zdravotnictví), multimodální vstupy, scénáře s mnoha paralelními agenty.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- === POZNÁMKY === -->
+    <div class="notes">
+      <h2>Jak vybrat správný framework</h2>
+      <p><strong>Maximální kontrola a auditovatelnost</strong> workflow → <em>LangGraph</em>.</p>
+      <p><strong>Rychlé nasazení týmu agentů</strong> s minimem kódu → <em>CrewAI</em>.</p>
+      <p><strong>Produkční spolehlivost a validace výstupů</strong> → <em>Pydantic AI</em>.</p>
+      <p><strong>Microsoft/Azure prostředí</strong> → <em>Microsoft Agent Framework</em> (nástupce AutoGen + Semantic Kernel); <strong>Google Cloud</strong> → <em>Google ADK</em>.</p>
+      <p><strong>RAG a práce s dokumenty</strong> → <em>LlamaIndex</em>.</p>
+      <p><strong>Výkon a multimodalita</strong> → <em>Agno</em> (dříve Phidata).</p>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -137,7 +137,7 @@ https://modelcontextprotocol.io/
 
 ### Flow
 1. user zadá úkol
-2. LLM vybere tool
+2. LLM vybere tool:
 3. orchestrátor volá MCP
 4. MCP volá backend
 5. výsledek zpět do LLM  
@@ -237,5 +237,11 @@ graph.invoke({"input": "Jaké je počasí v Praze?"})
 - enterprise řešení
 - vyšší stabilita a kontrola  
 
+**OpenClaw**
+
+https://github.com/openclaw/openclaw
+
+
+## Více
 
 
