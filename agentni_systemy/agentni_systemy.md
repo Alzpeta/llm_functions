@@ -242,6 +242,6 @@ graph.invoke({"input": "Jaké je počasí v Praze?"})
 https://github.com/openclaw/openclaw
 
 
-## Více
+## [Více](https://alzpeta.github.io/AIBR_Prednasky/agenti_systemy/agenticka-ai-frameworky.html)
 
 
