@@ -8,3 +8,4 @@ Tento repozitář slouží jako rozcestník na jednotlivé materiály k předná
 - [LLM API](./llm_api/llm_api.md)
 - [LLM pro vývoj SW](./vyvoj_sw/vyvoj_sw.md)
 - [Agentní systémy](agentni_systemy/agentni_systemy.md)
+- [Generování médií](generovani_medii/generovani_medii.md)
