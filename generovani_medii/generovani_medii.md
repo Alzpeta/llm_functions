@@ -387,6 +387,14 @@ princip:
 - všechno se převádí na vektory
 - model se učí společné vztahy
 
+<p>
+  <img src="./audio.png" style="width:400px; margin-left:15%;">
+</p>
+
+<p>
+  <img src="./obr.png" style="width:400px; margin-left:15%;">
+</p>
+
 
 ## Shrnutí
 

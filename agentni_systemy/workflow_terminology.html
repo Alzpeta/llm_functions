@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slovník: Automatizační nástroje (Make, n8n, Zapier)</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #E0E7FF;
+            --bg: #F3F4F6;
+            --surface: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #4B5563;
+            --border: #E5E7EB;
+            --make: #9333EA;
+            --n8n: #EA580C;
+            --zapier: #F97316;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .term {
+            margin-bottom: 1.5rem;
+        }
+
+        .term-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .term-translation {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .example {
+            background-color: var(--primary-light);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .table-container {
+            margin-top: 3rem;
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg);
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .brand-make { color: var(--make); font-weight: bold; }
+        .brand-n8n { color: var(--n8n); font-weight: bold; }
+        .brand-zapier { color: var(--zapier); font-weight: bold; }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: var(--bg);
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🛠️ Automatizační Terminologie</h1>
+        <p>Praktický průvodce názvoslovím pro Make, n8n a Zapier</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            
+            <div class="card">
+                <h2>🧱 Základní stavba</h2>
+                <div class="term">
+                    <span class="term-title">🛤️ Workflow / Scenario / Zap</span>
+                    <span class="term-translation">(Scénář / Proces)</span>
+                    <p>Celý zkompletovaný automatizační proces od začátku do konce. Skládá se ze spouštěče a následných akcí.</p>
+                    <div class="example"><strong>Příklad:</strong> Hlídá nové e-maily s fakturou, stáhne přílohu a nahraje ji na Google Drive.</div>
+                </div>
+                <div class="term">
+                    <span class="term-title">🔵 Node / Module / Step</span>
+                    <span class="term-translation">(Uzel / Modul / Krok)</span>
+                    <p>Jedna konkrétní "bublina" v procesu. Zastupuje jednu operaci v jedné aplikaci.</p>
+                    <div class="example"><strong>Příklad:</strong> Modul "Google Drive: Upload a File" nebo uzel "Slack: Send a Message".</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚡ Spouštěče (Triggers)</h2>
+                <p><em>První uzel v celém procesu. Čeká na událost a spustí workflow.</em></p>
+                <div class="term">
+                    <span class="term-title">🎣 Webhook</span>
+                    <span class="term-translation">(Okamžitý / Real-time)</span>
+                    <p>Aplikace aktivně pošle signál do nástroje v momentě, kdy se něco stane.</p>
+                    <div class="example"><strong>Příklad:</strong> Zákazník zaplatí na Stripe a ten okamžitě odešle data o platbě.</div>
+                </div>
+                <div class="term">
+                    <span class="term-title">⏱️ Polling</span>
+                    <span class="term-translation">(Pravidelná kontrola)</span>
+                    <p>Nástroj se v pravidelných intervalech dotazuje: "Máš pro mě něco nového?"</p>
+                    <div class="example"><strong>Příklad:</strong> Kontrola nových řádků v Google Sheets každých 15 minut.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🎬 Akce (Actions)</h2>
+                <p><em>Uzly, které následují po spouštěči. Aktivně vykonávají úkoly.</em></p>
+                <div class="term">
+                    <span class="term-title">✍️ Create / Update / Delete</span>
+                    <span class="term-translation">(Zápis)</span>
+                    <p>Mění stav v cílové aplikaci (vytváří, maže nebo upravuje data).</p>
+                    <div class="example"><strong>Příklad:</strong> Vytvoř nového klienta v CRM; Aktualizuj úkol v Asaně na "Hotovo".</div>
+                </div>
+                <div class="term">
+                    <span class="term-title">🔍 Search / Get / Read</span>
+                    <span class="term-translation">(Čtení / Lookup)</span>
+                    <p>Slouží k získání existujících dat pro další kroky ve scénáři.</p>
+                    <div class="example"><strong>Příklad:</strong> Vyhledání ID zákazníka v CRM na základě jeho e-mailové adresy.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🌊 Tok dat a mapování</h2>
+                <div class="term">
+                    <span class="term-title">📄 JSON</span>
+                    <p>Univerzální textový formát (strukturovaný seznam klíčů a hodnot), přes který si aplikace vyměňují data.</p>
+                </div>
+                <div class="term">
+                    <span class="term-title">🔗 Mapping</span>
+                    <span class="term-translation">(Mapování proměnných)</span>
+                    <p>Vložení výstupních dat z předchozího uzlu jako vstupních dat do dalšího uzlu.</p>
+                    <div class="example"><strong>Příklad:</strong> Do pole "E-mail příjemce" vložíme bublinu "Email" z modulu Typeform.</div>
+                </div>
+                <div class="term">
+                    <span class="term-title">📦 Item / Bundle</span>
+                    <span class="term-translation">(Položka / Balíček dat)</span>
+                    <p>Jedna sada dat, která prochází scénářem (např. 1 e-mail = 1 bundle).</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔀 Řízení logiky (Control Flow)</h2>
+                <p><em>Uzly, které nekomunikují ven, ale řídí cestu dat uvnitř procesu.</em></p>
+                <div class="term">
+                    <span class="term-title">🛣️ Router / Switch</span>
+                    <p>Rozdělí workflow na více větví na základě definovaných podmínek.</p>
+                </div>
+                <div class="term">
+                    <span class="term-title">🛑 Filter</span>
+                    <p>Zastaví data, pokud nesplňují podmínku (např. propustí jen e-maily se slovem "Urgentní").</p>
+                </div>
+                <div class="term">
+                    <span class="term-title">🔄 Iterator</span>
+                    <p>Rozseká seznam (např. e-mail s 3 přílohami) na samostatné operace (3 běhy).</p>
+                </div>
+                <div class="term">
+                    <span class="term-title">🗜️ Aggregator</span>
+                    <p>Slučuje samostatné položky zpět do jednoho seznamu.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔐 Připojení a Autentizace</h2>
+                <div class="term">
+                    <span class="term-title">🔑 Connection / Credentials</span>
+                    <span class="term-translation">(Připojení)</span>
+                    <p>Aby nástroj mohl sahat do vaší aplikace, musí dostat "klíče".</p>
+                    <br>
+                    <span class="tag">OAuth 2.0</span> Bezpečné přihlášení přes tlačítko (Google/Microsoft).<br><br>
+                    <span class="tag">API Key</span> Dlouhý řetězec znaků (např. <code>sk_live_123</code>), který vložíte ručně.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="table-container">
+            <h2>🌍 Překladový slovník platforem</h2>
+            <p>Rychlý přehled, pokud přecházíte z jednoho nástroje do druhého.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Obecný pojem</th>
+                        <th class="brand-make">Make</th>
+                        <th class="brand-n8n">n8n</th>
+                        <th class="brand-zapier">Zapier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Celý Proces</strong></td>
+                        <td>Scenario</td>
+                        <td>Workflow</td>
+                        <td>Zap</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Krok / Uzel</strong></td>
+                        <td>Module</td>
+                        <td>Node</td>
+                        <td>Step</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sada dat (1 průchod)</strong></td>
+                        <td>Bundle</td>
+                        <td>Item</td>
+                        <td>Task</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rozbočovač</strong></td>
+                        <td>Router</td>
+                        <td>Switch / Router</td>
+                        <td>Paths</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Počet provedených akcí</strong></td>
+                        <td>Operations</td>
+                        <td>Executions</td>
+                        <td>Tasks</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

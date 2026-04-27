@@ -270,4 +270,5 @@ https://github.com/openclaw/openclaw
 
 ## [Více](https://alzpeta.github.io/AIBR_Prednasky/agentni_systemy/agenticka-ai-frameworky.html)
 
+## [Workflow terminologie](https://alzpeta.github.io/AIBR_Prednasky/agentni_systemy/workflow_terminology.html)
 
