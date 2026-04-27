@@ -248,8 +248,6 @@ klíčová věc:
 - začínají náhodným šumem
 - postupně ho transformují na hudbu
 
-např. :contentReference[oaicite:1]{index=1}
-
 **Výhody:**
 - vysoká kvalita zvuku
 - realistický audio výstup
@@ -264,8 +262,6 @@ např. :contentReference[oaicite:1]{index=1}
 - nejdřív komprimují audio do latentního prostoru
 - generují v tomto zjednodušeném prostoru
 - pak dekódují zpět na zvuk
-
-např. :contentReference[oaicite:2]{index=2}
 
 **Výhody:**
 - efektivnější než práce s raw audiem
