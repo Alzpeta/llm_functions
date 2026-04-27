@@ -26,53 +26,6 @@ generování: reverzní proces
 <p>
   <img src="./difuzni_modely.png" style="width:400px; margin-left:15%;">
 </p>
-
-## Latentní difuze
-problém: obrázky mají hodně dat (např. 512×512×3) → pomalé
-řešení: pracovat v latentním prostoru (komprimovaná reprezentace)
-
-proces:
-
-- obrázek → encoder → menší reprezentace
-- difuze probíhá v tomto prostoru
-- decoder → zpět na obrázek
-- výrazně rychlejší a efektivnější
-- používá se např. ve Stable Diffusion
-- typicky kombinace s VAE
-
-
-## GAN (Generative Adversarial Networks)
-dvě neuronové sítě proti sobě:
-generátor → vytváří obrázky
-discriminátor → říká real vs fake
-trénink = „hra“:
-generátor se snaží oklamat diskriminátor
-diskriminátor se zlepšuje v rozpoznávání
-
-výsledek:
-
-generátor se naučí generovat realistická data
-
-<p>
-  <img src="./gan.png" style="width:400px; margin-left:15%;">
-</p>
-
-## VAE (Variational Autoencoder)
-pracuje s latentním prostorem
-skládá se ze dvou částí:
-encoder → komprese
-decoder → rekonstrukce
-generování:
-sample z latentního prostoru → dekódování → obraz
-výhoda:
-dobře strukturovaný latentní prostor
-nevýhoda:
-často méně ostré obrázky než diffusion/GAN
-
-<p>
-  <img src="./cvae_latent_space.jpg" style="width:400px; margin-left:15%;">
-</p>
-
 ## Jak funguje generování obrázků z promptu
 
 klíčová myšlenka: propojení textu a obrazu přes společný prostor (embeddingy)
@@ -157,6 +110,52 @@ dnes zlepšení:
 5. (někdy) post-processing
    - obraz se vygeneruje bez textu
    - text se doplní jiným modelem
+
+## Latentní difuze
+problém: obrázky mají hodně dat (např. 512×512×3) → pomalé
+řešení: pracovat v latentním prostoru (komprimovaná reprezentace)
+
+proces:
+
+- obrázek → encoder → menší reprezentace
+- difuze probíhá v tomto prostoru
+- decoder → zpět na obrázek
+- výrazně rychlejší a efektivnější
+- používá se např. ve Stable Diffusion
+- typicky kombinace s VAE
+
+
+## GAN (Generative Adversarial Networks)
+dvě neuronové sítě proti sobě:
+generátor → vytváří obrázky
+discriminátor → říká real vs fake
+trénink = „hra“:
+generátor se snaží oklamat diskriminátor
+diskriminátor se zlepšuje v rozpoznávání
+
+výsledek:
+
+generátor se naučí generovat realistická data
+
+<p>
+  <img src="./gan.png" style="width:400px; margin-left:15%;">
+</p>
+
+## VAE (Variational Autoencoder)
+pracuje s latentním prostorem
+skládá se ze dvou částí:
+encoder → komprese
+decoder → rekonstrukce
+generování:
+sample z latentního prostoru → dekódování → obraz
+výhoda:
+dobře strukturovaný latentní prostor
+nevýhoda:
+často méně ostré obrázky než diffusion/GAN
+
+<p>
+  <img src="./cvae_latent_space.jpg" style="width:400px; margin-left:15%;">
+</p>
 
 
 ## Generování zvuku
