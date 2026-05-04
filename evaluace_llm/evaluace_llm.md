@@ -335,6 +335,8 @@ Human evaluace znamená hodnocení výstupů modelu skutečnými lidmi. Posuzuje
 
 Na rozdíl od automatických metrik dokáže člověk hodnotit význam, kontext i kvalitu odpovědi.
 
+[evaluace pokus](evaluace_test.md)
+
 ---
 
 ### Základní metody
