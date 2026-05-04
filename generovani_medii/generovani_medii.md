@@ -232,7 +232,7 @@ klíčová věc:
 ### 1. Autoregresní modely
 - generují hudbu postupně (nota po notě / token po tokenu)
 - podobné generování textu
-- často založené na transformerech (např. :contentReference[oaicite:0]{index=0})
+- často založené na transformerech
 
 **Výhody:**
 - dobrá kontrola nad strukturou
